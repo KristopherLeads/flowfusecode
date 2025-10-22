@@ -1,0 +1,172 @@
+[
+    {
+        "id": "6fd202e269c6fa54",
+        "type": "inject",
+        "z": "407cb042aa3c84fa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "715ba2f24ea11272"
+            ]
+        ]
+    },
+    {
+        "id": "953aebf60042852e",
+        "type": "ui-template",
+        "z": "407cb042aa3c84fa",
+        "group": "acfeafe47b3ea698",
+        "page": "",
+        "ui": "",
+        "name": "OEE Colour",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<div :style=\"{\n      backgroundColor: msg.class === 'ClassRed' ? '#ff4d4d' :\n                       msg.class === 'ClassYellow' ? '#ffe066' :\n                       msg.class === 'ClassGreen' ? '#33cc33' : '#ffffff',\n      color: msg.class === 'ClassYellow' ? '#000' : '#fff',\n      borderRadius: '8px',\n      fontWeight: 'bold',\n      fontSize: '24px',\n      textAlign: 'center',\n      padding: '20px',\n      transition: 'background-color 0.5s ease'\n  }\">\n  <h2>Current OEE</h2>\n  <div>{{msg.payload}}</div>\n</div>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 490,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "715ba2f24ea11272",
+        "type": "function",
+        "z": "407cb042aa3c84fa",
+        "name": "Class Set",
+        "func": "const randomNumber = Math.floor(Math.random() * 101);\nmsg.payload = randomNumber;\n\nif (randomNumber >= 85) {\n    msg.class = \"ClassGreen\";\n} else if (randomNumber >= 60) {\n    msg.class = \"ClassYellow\";\n} else {\n    msg.class = \"ClassRed\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "953aebf60042852e"
+            ]
+        ]
+    },
+    {
+        "id": "acfeafe47b3ea698",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "aaab4ea6595d721c",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "aaab4ea6595d721c",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "0425b99c895567ea",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "99956f1f9f5fa94a",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "0425b99c895567ea",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "99956f1f9f5fa94a",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "c0db9e2737c64a45",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.29.0"
+        }
+    }
+]
